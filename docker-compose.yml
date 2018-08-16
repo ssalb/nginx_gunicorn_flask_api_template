@@ -1,0 +1,28 @@
+# First server setup
+redis1:
+    build: redis
+api1:
+    build: api
+    volumes:
+        - api:/api
+    links:
+        - redis1
+
+# Second server setup
+redis2:
+    build: redis
+api2:
+    build: api
+    volumes:
+        - api:/api
+    links:
+        - redis2
+
+# Load balancer
+nginx:
+    build: nginx
+    ports:
+        - "5000:80"
+    links:
+        - api1
+        - api2
