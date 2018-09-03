@@ -65,7 +65,7 @@ def predict():
             response["payload"] = json.loads(output)
             db.delete(k)
             break
-    time.sleep(config.CLIENT_SLEEP)
+        time.sleep(config.CLIENT_SLEEP)
     response["success"] = True
 
     return flask.jsonify(response)
