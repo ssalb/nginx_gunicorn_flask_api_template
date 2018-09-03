@@ -6,5 +6,7 @@ db = redis.StrictRedis(host=config.DB_HOST, port=config.DB_PORT, db=config.DB_ID
 
 if __name__=="__main__":
 
+    model = Model()
+
     while True:
         time.sleep(config.SERVER_SLEEP)
