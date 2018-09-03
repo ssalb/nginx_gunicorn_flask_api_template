@@ -6,6 +6,7 @@ class PreTrainedModel:
     def __init__(self):
         self.built = False
         self.loaded = False
+        self.model = None
         self.build()
         self.load()
 
