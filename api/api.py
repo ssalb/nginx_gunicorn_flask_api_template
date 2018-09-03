@@ -63,7 +63,7 @@ def predict():
 		if output is not None:
 			output = output.decode("utf-8")
 			response["payload"] = json.loads(output)
-				db.delete(k)
+			db.delete(k)
 			break
 		time.sleep(config.CLIENT_SLEEP)
 	response["success"] = True

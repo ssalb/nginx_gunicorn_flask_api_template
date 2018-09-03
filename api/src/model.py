@@ -1,4 +1,7 @@
-class Model:
+# from keras.models import Model
+#from keras.layers import Input, ...
+
+class PreTrainedModel:
 
     def __init__(self):
         self.built = False
@@ -20,5 +23,6 @@ class Model:
         #     raise RuntimeError("Model is not built.")
         # if not self.loaded:
         #     raise RuntimeError("Model is not loaded.")
-        # self.model.predict(input_X)
+        # preds = self.model.predict(input_X)
+        #return preds
         pass
