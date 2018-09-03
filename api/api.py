@@ -60,15 +60,15 @@ def predict():
 
     while True:
         output = db.get(k)
-		if output is not None:
-			output = output.decode("utf-8")
-			response["payload"] = json.loads(output)
-			db.delete(k)
-			break
-		time.sleep(config.CLIENT_SLEEP)
-	response["success"] = True
+	if output is not None:
+	    output = output.decode("utf-8")
+	    response["payload"] = json.loads(output)
+	    db.delete(k)
+	    break
+	time.sleep(config.CLIENT_SLEEP)
+    response["success"] = True
 
-	return flask.jsonify(response)
+    return flask.jsonify(response)
 
 if __name__=="__main__":
     app.run()
