@@ -23,3 +23,5 @@ tensorboard==1.10.0
 tensorflow==1.10.0
 termcolor==1.1.0
 Werkzeug==0.14.1
+redis==4.0.9
+flask-httpauth==3.2.4
