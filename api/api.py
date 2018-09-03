@@ -47,19 +47,19 @@ def predict():
     # or any of the required fields in the request
         abort(400)
 
-	####################################################
+    ####################################################
     #
     # If required, preprocess data here
     # then pack everything into input_x
     #
     ####################################################
 
-	k = str(uuid.uuid4())
-	d = {"id": k, "input": input_x}
-	db.rpush(config.DB_QUEUE, json.dumps(d))
+    k = str(uuid.uuid4())
+    d = {"id": k, "input": input_x}
+    db.rpush(config.DB_QUEUE, json.dumps(d))
 
-	while True:
-		output = db.get(k)
+    while True:
+        output = db.get(k)
 		if output is not None:
 			output = output.decode("utf-8")
 			response["payload"] = json.loads(output)
