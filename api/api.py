@@ -46,7 +46,7 @@ def predict():
     if not request.json or request.method is not "POST":
     # or any of the required fields in the request
         abort(400)
-
+    
     ####################################################
     #
     # If required, preprocess data here
@@ -57,15 +57,15 @@ def predict():
     k = str(uuid.uuid4())
     d = {"id": k, "input": input_x}
     db.rpush(config.DB_QUEUE, json.dumps(d))
-
+    
     while True:
         output = db.get(k)
-	if output is not None:
-	    output = output.decode("utf-8")
-	    response["payload"] = json.loads(output)
-	    db.delete(k)
-	    break
-	time.sleep(config.CLIENT_SLEEP)
+        if output is not None:
+            output = output.decode("utf-8")
+            response["payload"] = json.loads(output)
+            db.delete(k)
+            break
+    time.sleep(config.CLIENT_SLEEP)
     response["success"] = True
 
     return flask.jsonify(response)
