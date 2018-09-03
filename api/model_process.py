@@ -31,7 +31,6 @@ if __name__=="__main__":
 			q_ids.append(q["id"])
 
         if len(q_ids) > 0:
-			print("* Batch size: {}".format(batch.shape))
 			preds = model.predict(batch)
 
 			for (q_id, result) in zip(q_ids, results):

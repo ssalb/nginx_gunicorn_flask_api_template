@@ -8,5 +8,6 @@ RUN mkdir logs
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-#CMD ["python", "model_process.py", "&", "gunicorn", "-c", "gunicorn.py", "api:app"]
+RUN python model_process.py &>/dev/null &
+
 CMD ["gunicorn", "-c", "gunicorn.py", "api:app"]

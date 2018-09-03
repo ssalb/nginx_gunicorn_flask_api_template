@@ -1,6 +1,8 @@
+import os
+
 API_VERSION = 1
 
-DB_HOST = "redis"
+DB_HOST = os.environ["REDIS_HOST"]
 DB_PORT = 6379
 DB_ID = 0
 

@@ -3,6 +3,8 @@ redis1:
     build: redis
 api1:
     build: api
+    environment:
+        - REDIS_HOST=redis1
     volumes:
         - api:/api
     links:
@@ -13,6 +15,8 @@ redis2:
     build: redis
 api2:
     build: api
+    environment:
+        - REDIS_HOST=redis2
     volumes:
         - api:/api
     links:
