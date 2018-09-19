@@ -7,12 +7,13 @@ https://www.pyimagesearch.com/2018/02/05/deep-learning-production-keras-redis-fl
 
 but pay attention, it's not equivalent.
 
-It is composed of three Docker images:
+It is composed of four Docker images:
   - `api`: running the API using Flask and gunicorn
+  - `ml_service`: runs the model in a separate instance, to avoid issues with the API multithreading.
   - `redis`: simply working as a queue to manage requests
   - `nginx`: used as a load balancer
 
-In this way, clients connect to the `nginx` instance, which acts as a proxy and forwards the requests to the servers. The servers here are the `api` instances that you want running (two in this repo as an example), where each of them is linked to it's own `redis` instance.
+In this way, clients connect to the `nginx` instance, which acts as a proxy and forwards the requests to the servers. The servers here are the `api` instances that you want running (two in this repo as an example), where each of them is linked to it's own `redis` instance, that it's used as a queue where the data of each request is placed. The `ml_service` process takes batches from this queue, runs this batch through the model, and places the results back in `redis`. Finally the `api` takes the results, appends them to the API response and removes the whole entry from the queue.
 
 If you have some experience using flask (or other web frameworks), you'll find that you can easily use the same template for your app.
 
@@ -34,6 +35,6 @@ it should be now available under `localhost:5000` (you can modify the port in `d
 
 ## How to actually use it
 
-This is meant to be a template for flask APIs, using Keras deep learning models in particular, but it doesn't do much right now as each application would have it's own special functionalities. You'll need to implement a few functions at least (see `api/src/model.py`, `api/api.py` and `api/model_process.py`), and probably edit the `api/requirements.txt` file if you want to modify/extend it to your needs. Additionally, you might want to edit the ports in `docker-compose.yml`, as well as `nginx/nginx_flask.conf`.
+This is meant to be a template for flask APIs, using Keras deep learning models in particular, but it doesn't do much right now as each application would have it's own special functionalities. You'll need to implement a few functions at least (see `ml_service/src/model.py`, `api/api.py` and `ml_service/model_process.py`), and probably edit the `requirements.txt` files (in `api/` and/or `ml_service/`) if you want to modify/extend it to your needs. Additionally, you might want to edit the ports in `docker-compose.yml`, as well as `nginx/nginx_flask.conf`.
 
 Quite frankly, I still need to test this template with an actual model, as soon as I do it (or someone else does it), I'll delete this line ;) - have it mind for now.

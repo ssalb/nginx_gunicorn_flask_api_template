@@ -1,4 +1,4 @@
-from src.model import Model
+from src.model import PreTrainedModel
 import config
 import time
 import numpy as np
@@ -13,7 +13,7 @@ if __name__=="__main__":
         queue = db.lrange(config.DB_QUEUE, 0, config.BATCH_SIZE - 1)
         q_ids = []
         batch = None
-        
+
         for q in queue:
             q = json.loads(q.decode("utf-8"))
             input_x = q["input"]
@@ -27,9 +27,9 @@ if __name__=="__main__":
                 batch = input_x
             else:
                 batch = np.vstack([batch, input_x])
-                
+
             q_ids.append(q["id"])
-            
+
         if len(q_ids) > 0:
             preds = model.predict(batch)
             for (q_id, result) in zip(q_ids, results):
@@ -40,7 +40,7 @@ if __name__=="__main__":
                 #
                 #########################################
                 db.set(q_id, json.dumps(output))
-                
+
             db.ltrim(settings.DB_QUEUE, len(q_ids), -1)
-            
+
         time.sleep(config.SERVER_SLEEP)

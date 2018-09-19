@@ -9,6 +9,12 @@ api1:
         - api:/api
     links:
         - redis1
+ml_service1:
+    build: ml_service
+    environment:
+        - REDIS_HOST=redis1
+    links:
+        - redis1
 
 # Second server setup
 redis2:
@@ -19,6 +25,12 @@ api2:
         - REDIS_HOST=redis2
     volumes:
         - api:/api
+    links:
+        - redis2
+ml_service2:
+    build: ml_service
+    environment:
+        - REDIS_HOST=redis2
     links:
         - redis2
 
