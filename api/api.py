@@ -8,8 +8,8 @@ from flask_httpauth import HTTPBasicAuth
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
-db = redis.StrictRedis(host=config.DB_HOST, port=config.DB_PORT, db=config.DB_ID)
-PREDICT_PATH = "/api/v{}/predict".format(config.API_VERSION)
+db = redis.StrictRedis(host=config.DB_HOST, port=config.DB_PORT, db=config.DB_NAME)
+PREDICT_PATH = f"/api/v{config.API_VERSION}/predict"
 
 #############################################
 # MODIFY THIS AS REQUIRED

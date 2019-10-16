@@ -3,7 +3,7 @@ import config
 import time
 import numpy as np
 
-db = redis.StrictRedis(host=config.DB_HOST, port=config.DB_PORT, db=config.DB_ID)
+db = redis.StrictRedis(host=config.DB_HOST, port=config.DB_PORT, db=config.DB_NAME)
 
 if __name__=="__main__":
 

@@ -1,10 +1,7 @@
-FROM python:3.6.6
+FROM python:3.7-slim-stretch
 
-ENV API_PORT 80
-COPY . /api
-
-WORKDIR /api
-RUN mkdir logs
+WORKDIR /app
+COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 

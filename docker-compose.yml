@@ -1,44 +1,34 @@
-# First server setup
-redis1:
-    build: redis
-api1:
-    build: api
-    environment:
-        - REDIS_HOST=redis1
-    volumes:
-        - api:/api
-    links:
-        - redis1
-ml_service1:
-    build: ml_service
-    environment:
-        - REDIS_HOST=redis1
-    links:
-        - redis1
+version: "3.7"
 
-# Second server setup
-redis2:
+# First server setup
+redis:
     build: redis
-api2:
+    expose:
+        - "6379"
+
+api:
     build: api
     environment:
-        - REDIS_HOST=redis2
+        - REDIS_HOST=redis
+        - REDIS_PORT=6379
+        - REDIS_ID=0
+        - INPUT_QUEUE=input_queue
     volumes:
         - api:/api
+    expose:
+        - "5000"
     links:
-        - redis2
-ml_service2:
+        - redis1
+ml_service:
     build: ml_service
     environment:
-        - REDIS_HOST=redis2
-    links:
-        - redis2
+        - REDIS_HOST=redis
+        - REDIS_PORT=6379
+        - REDIS_ID=0
+        - INPUT_QUEUE=input_queue
 
 # Load balancer
 nginx:
     build: nginx
     ports:
-        - "5000:80"
-    links:
-        - api1
-        - api2
+        - "127.0.0.1:5000:80"
