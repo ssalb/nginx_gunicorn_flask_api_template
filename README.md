@@ -7,7 +7,7 @@ This is a template using Docker containers to deploy a pre-trained ML model REST
 - `api`: running the API using Flask and gunicorn
 - `ml_service`: runs the model in a separate instance.
 - `redis`: simply working as a messaging bus.
-- `nginx`: used as a load balancer
+- `nginx`: used as a reversed proxy (and load balancer if needed).
 
 In this way, clients connect to the `nginx` instance, which acts as a proxy and forwards the requests to the `api` instance which puts the request's data into redis. The `ml_service` processes (only one in this case as example, see [replicas](https://docs.docker.com/compose/compose-file/#replicas)) takes batches from the queue, runs this batch through the model, and places the results back in `redis`. Finally the `api` takes the results, appends them to the API response and removes it.
 
