@@ -5,7 +5,7 @@ import numpy as np
 
 db = redis.StrictRedis(host=config.DB_HOST, port=config.DB_PORT, db=config.DB_NAME)
 
-if __name__=="__main__":
+if __name__ == "__main__":
 
     model = PreTrainedModel()
 
@@ -17,12 +17,7 @@ if __name__=="__main__":
         for q in queue:
             q = json.loads(q.decode("utf-8"))
             input_x = q["input"]
-            ####################################################
-            #
-            # If required, preprocess input_x here
-            # e.g. from list to np.array
-            #
-            ####################################################
+
             if batch is None:
                 batch = input_x
             else:
@@ -31,12 +26,17 @@ if __name__=="__main__":
             q_ids.append(q["id"])
 
         if len(q_ids) > 0:
-            preds = model.predict(batch)
+            ####################################################
+            # If required, preprocess input_x here
+            proc_batch = model.preprocess(batch)
+            ####################################################
+
+            preds = model.predict(proc_batch)
             for (q_id, result) in zip(q_ids, results):
                 output = {"prediction": result}
                 #########################################
                 #
-                # Add other metadata to output here.
+                # If required, add other metadata to output here.
                 #
                 #########################################
                 db.set(q_id, json.dumps(output))

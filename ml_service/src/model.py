@@ -1,22 +1,23 @@
-# from keras.models import Model
-# from keras.layers import Input, ...
-
 class PreTrainedModel:
-
     def __init__(self):
+        # Modify this as required. E.g. you don't need to build sklearn models
         self.built = False
         self.loaded = False
         self.model = None
-        self.build()
-        self.load()
+        self._build()
+        self._load()
 
-    def build(self):
+    def _build(self):
         # once built, make self.built = True
         pass
 
-    def load(self):
+    def _load(self):
         # if not self.built:
         #     raise RuntimeError("Model is not built.")
+        pass
+
+    def preprocess(self, input_x):
+        # Preproces/Augment data before prediciton
         pass
 
     def predict(self, input_X):
@@ -25,5 +26,5 @@ class PreTrainedModel:
         # if not self.loaded:
         #     raise RuntimeError("Model is not loaded.")
         # preds = self.model.predict(input_X)
-        #return preds
+        # return preds
         pass
