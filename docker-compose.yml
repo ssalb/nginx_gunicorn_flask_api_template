@@ -3,6 +3,8 @@ version: "3.7"
 services:
     redis:
         build: redis
+        networks:
+            - api-network
         expose:
             - "6379"
 
@@ -13,6 +15,8 @@ services:
             - REDIS_PORT=6379
             - REDIS_ID=0
             - INPUT_QUEUE=input_queue
+        networks:
+            - api-network
         expose:
             - "5000"
 
@@ -23,9 +27,15 @@ services:
             - REDIS_PORT=6379
             - REDIS_ID=0
             - INPUT_QUEUE=input_queue
+        networks:
+            - api-network
 
     # Load balancer
     nginx:
         build: nginx
+        networks:
+            - api-network
         ports:
             - "127.0.0.1:5000:80"
+networks:
+    api-network:
