@@ -6,7 +6,7 @@ def max_workers():
     return cpu_count()
 
 
-bind = "127.0.0.1:{}".format(environ.get("API_PORT", 5000))
+bind = "0.0.0.0:{}".format(environ.get("API_PORT", 5000))
 max_requests = 1024
 workers = max_workers()
 
