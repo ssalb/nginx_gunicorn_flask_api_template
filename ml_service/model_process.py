@@ -1,8 +1,9 @@
-from src.model import PreTrainedModel
+import json
 import config
 import time
 import redis
 import numpy as np
+from src.model import PreTrainedModel
 
 db = redis.StrictRedis(host=config.DB_HOST, port=config.DB_PORT, db=config.DB_NAME)
 
@@ -42,6 +43,6 @@ if __name__ == "__main__":
                 #########################################
                 db.set(q_id, json.dumps(output))
 
-            db.ltrim(settings.DB_QUEUE, len(q_ids), -1)
+            db.ltrim(config.DB_QUEUE, len(q_ids), -1)
 
         time.sleep(config.SERVER_SLEEP)
