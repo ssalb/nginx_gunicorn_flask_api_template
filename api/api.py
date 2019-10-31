@@ -26,7 +26,7 @@ def predict():
     Puts input data in the queue and waits for result
     """
     response = {"success": False}
-    if not request.json or request.method is not "POST":
+    if not request.json:
         # or any of the required fields in the request
         abort(400)
 
