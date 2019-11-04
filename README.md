@@ -13,7 +13,9 @@ In this way, clients connect to the `nginx` instance, which acts as a proxy and 
 
 ## How to use
 
-You'll need to implement a few functions at least (see `ml_service/src/model.py`, `api/api.py` and `ml_service/model_process.py`), and perhaps edit the `requirements.txt` files in `api/` and/or `ml_service/`. Additionally, you might want to edit the ports in `docker-compose.yml`, as well as `nginx/nginx_flask.conf`. You can find an example [here](https://github.com/ssalb/prediction-api-example).
+You'll need to implement a few functions at least (see `ml_service/src/model.py`, `api/api.py` and `ml_service/model_process.py`), and perhaps edit the `requirements.txt` files in `api/` and/or `ml_service/`. Additionally, you might want to edit the ports in `docker-compose.yml`, as well as `nginx/nginx_flask.conf`. 
+
+**You can find an implementation example [here](https://github.com/ssalb/prediction-api-example).**
 
 Assuming you have docker-compose installed (look here if you don't: https://docs.docker.com/compose/install/) simply run:
 
